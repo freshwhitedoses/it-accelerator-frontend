@@ -1,0 +1,10 @@
+<div *ngIf="user | async as userR" style="background-color: white; display: flex; gap: 2rem; height: 80px; width: 100%; align-items: center; padding: 0 3rem; box-shadow: 0 -1px 40px 0 rgba(145, 145, 156, 1);">
+  <img src="assets/cloud-backup-svgrepo-com.svg" height="70px">
+  <a  *ngIf="userR.data.role==='USER'" [routerLink]="['/my/startups']">Мои стартапы</a>
+  <a *ngIf="userR.data.role==='USER'" [routerLink]="['/my/teams']">Мои команды</a>
+  <a *ngIf="userR.data.role==='INVESTOR'" [routerLink]="['/startups/investor']">Стартапы</a>
+  <a *ngIf="userR.data.role==='INVESTOR'" [routerLink]="['/investor/matches']">Метчи</a>
+  <a *ngIf="userR.data.role==='MODERATOR'" [routerLink]="['/startups/moderator']">Стартапы для анализа</a>
+  <a [routerLink]="['/account']">Личный кабинет</a>
+  <button *ngIf="userR.data.role==='USER'" [routerLink]="['/new/startup']" mat-raised-button color="primary">Создать стартап</button>
+</div>

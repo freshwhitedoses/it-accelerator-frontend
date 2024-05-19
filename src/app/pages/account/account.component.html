@@ -1,0 +1,22 @@
+<h1>Личный кабинет</h1>
+<div style="display: flex; flex-direction: column" *ngIf="user | async as userAccount">
+  <p style="display:flex;align-items: center">ID: <b style="display: flex;">
+    <div class="container">
+      <button (click)="doCopy(userAccount.data.username)" title="Copy content in this box" class="material-icons copy-button no-print ng-star-inserted" aria-label="">
+        <span class="copy-span" aria-hidden="true">content_copy</span>
+      </button>
+      <p class="text-content"> @{{userAccount.data.username}} </p>
+    </div>
+  </b></p>
+<h2 style="padding-top: 40px !important; display: flex">Настройки аккаунта {{getRole(userAccount.data.role)}}
+</h2>
+<div style="display: flex; flex-direction: column; gap: 1.5rem">
+  <p>Имя: <b>{{userAccount.data.name}}</b></p>
+  <p>Фамилия: <b>{{userAccount.data.surname}}</b></p>
+  <p>Телеграмм ID: <b>{{userAccount.data.telegramId}}</b></p>
+  <p>Электронная почта: <b>{{userAccount.data.email}}</b></p>
+  <p>Дата рождения: <b>{{userAccount.data.birthDate}}</b></p>
+  <button style="margin-top:40px !important; width: 300px;" mat-raised-button color="primary" (click)="logout()">Выйти из аккаунта</button>
+
+</div>
+</div>

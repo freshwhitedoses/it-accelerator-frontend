@@ -1,0 +1,29 @@
+<h1>Создание новой команды</h1>
+<form [formGroup]="teamForm" (ngSubmit)="submit()" style="margin-top: 6rem; display: flex; flex-direction: column; gap: 1rem; width: 100%">
+  <mat-form-field class="margin-top" appearance="outline" style="width: 370px">
+    <mat-label>Название команды</mat-label>
+    <input matInput formControlName="name">
+    <mat-error *ngIf="!name.valid">Укажите название</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-form-field" appearance="outline" style="width: 370px">
+    <mat-label>ID участников команды</mat-label>
+    <mat-chip-grid #chipGrid aria-label="Жми enter для ввода" formControlName="userNames" >
+      <mat-chip-row *ngFor="let keyword of keywords" (removed)="removeKeyword(keyword)">
+        {{keyword}}
+        <button matChipRemove aria-label="'remove ' + keyword">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
+    </mat-chip-grid>
+    <input placeholder="Жми enter для ввода"
+           [matChipInputFor]="chipGrid"
+           (matChipInputTokenEnd)="add($event)"/>
+    <mat-error *ngIf="!userNames.valid">Укажите участников</mat-error>
+
+  </mat-form-field>
+  <div style="display: flex; gap: 2rem">
+    <button (click)="saveTeam()" mat-flat-button color="primary" type="submit" style="width: 240px; height: 50px" class="margin-top"><p>Создать команду</p></button>
+    <button mat-stroked-button color="primary" (click)="goBack()" style="width: 240px; height: 50px" class="margin-top"><p>Отменить</p></button>
+  </div>
+</form>

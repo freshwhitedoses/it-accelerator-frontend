@@ -1,0 +1,13 @@
+<h1>Стартап <b style="color: #1b3dff;">{{startup.name}}</b></h1>
+<mat-chip-listbox [formControl]="statuses">
+  <mat-chip-option value="0">Не просмотренные</mat-chip-option>
+  <mat-chip-option value="1">Метч</mat-chip-option>
+  <mat-chip-option value="2">Не метч</mat-chip-option>
+</mat-chip-listbox>
+  <div style="display: flex; flex-direction: column; gap: 2rem; height: 100%;flex-wrap: wrap" *ngIf="startupsRes | async as startups">
+    <div style="display:flex; width: 100%; flex-wrap: wrap; gap: 2rem">
+      <app-investor *ngFor="let st of startups.data" [investorStartup]="st" [role]="'USER'"></app-investor>
+    </div>
+    <br><p style="text-align: center" *ngIf="startups.data.length==0"> Не найдено инвесторов по данным фильтрам</p>
+  </div>
+

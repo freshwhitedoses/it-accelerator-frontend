@@ -1,0 +1,8 @@
+<h1>Метчи</h1>
+<div style="display: flex; flex-direction: column; gap: 2rem; height: 100%;flex-wrap: wrap" *ngIf="startups | async as startupsS">
+  <div style="display:flex; width: 100%; flex-wrap: wrap; gap: 2rem">
+    <app-investor *ngFor="let st of startupsS.data" [investorStartup]="st" [role]="'INVESTOR'"></app-investor>
+  </div>
+  <br><p style="text-align: center" *ngIf="startupsS.data.length==0"> Не найдено метчей</p>
+</div>
+

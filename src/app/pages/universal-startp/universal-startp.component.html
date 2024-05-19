@@ -1,0 +1,117 @@
+<h1>{{readonly ? 'Информация о стартапе' : 'Редактирование стартапа'}}</h1>
+<form [formGroup]="formStartup" style="margin-top:60px; display: flex; flex-direction: column; gap: 1rem">
+  <mat-form-field class="margin-top" appearance="outline" style="width: 100%">
+    <mat-label>Название</mat-label>
+    <input [readOnly]="readonly" matInput formControlName="name">
+    <mat-error *ngIf="!name.valid">Требуется указать название</mat-error>
+  </mat-form-field>
+  <mat-form-field class="margin-top" appearance="outline" style="width: 100%">
+    <mat-label>Цель стартапа</mat-label>
+    <input  [readonly]="readonly" matInput formControlName="target">
+    <mat-error *ngIf="!target.valid">Требуется указать цель стартапа</mat-error>
+  </mat-form-field>
+  <mat-form-field class="margin-top" appearance="outline" style="width: 100%">
+    <mat-label>Описание стартапа</mat-label>
+    <textarea  [readonly]="readonly"  matInput formControlName="description"></textarea>
+    <mat-error *ngIf="!description.valid">Требуется указать описание стартапа</mat-error>
+  </mat-form-field>
+  <div style="display: flex; width: 100%; gap: 2rem">
+    <mat-form-field appearance="outline" style="width: 50%">
+      <mat-label>Команда</mat-label>
+      <mat-select [disabled]="readonly" formControlName="teamId">
+        <mat-option *ngFor="let team of teams | async" [value]="team.value">
+          {{team.text}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="!teamId.valid">Требуется указать команду</mat-error>
+    </mat-form-field>
+  </div>
+  <div style="display: flex; width: 100%; gap: 2rem">
+    <mat-form-field class="margin-top" appearance="outline" style="width: 50%">
+      <mat-label>Количество инвестиций (рубли)</mat-label>
+      <input [readonly]="readonly" type="number" matInput formControlName="investmentAmount">
+      <mat-error *ngIf="!investmentAmount.valid">Требуется указать количество инвестиций</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 50%">
+      <mat-label>Тип инвестиций</mat-label>
+      <mat-select  [disabled]="readonly" formControlName="investmentType">
+        <mat-option *ngFor="let team of investmentTypeOptions" [value]="team.value">
+          {{team.text}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="!investmentType.valid">Требуется указать тип инвестиций</mat-error>
+    </mat-form-field>
+  </div>
+  <div style="display: flex; width: 100%; gap: 2rem">
+    <mat-form-field appearance="outline" style="width:30%">
+      <mat-label>Стадия стартапа</mat-label>
+      <mat-select [disabled]="readonly" formControlName="maturityStage">
+        <mat-option *ngFor="let team of maturityStageOptions" [value]="team.value">
+          {{team.text}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="!maturityStage.valid">Требуется указать стадию стартапа</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="margin-top" appearance="outline" style="width:70%">
+      <mat-label>Ссылка на необходисые файлы</mat-label>
+      <input  [readonly]="readonly" matInput formControlName="filesLink">
+      <mat-error *ngIf="!filesLink.valid">Требуется указать ссылку на необходисые файлы</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div style="display: flex; width: 100%; gap: 2rem">
+    <mat-form-field appearance="outline" style="width: 50%">
+      <mat-label>Главное в моей команде</mat-label>
+      <mat-select [disabled]="readonly" formControlName="mainInMe">
+        <mat-option *ngFor="let team of mainInMeOptions" [value]="team.value">
+          {{team.text}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="!mainInMe.valid">Требуется указать главное в команде</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 50%">
+      <mat-label>Главное в нашем стартапе</mat-label>
+      <mat-select [disabled]="readonly" formControlName="mainInStartup">
+        <mat-option *ngFor="let team of mainInStartupOptions" [value]="team.value">
+          {{team.text}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="!mainInStartup.valid">Требуется указать главное в стартапе</mat-error>
+    </mat-form-field>
+  </div>
+  <div style="display: flex; gap: 2rem; margin-bottom: 50px" *ngIf="!readonly">
+    <button mat-flat-button color="primary" type="submit" style="width: 240px; height: 50px" class="margin-top"><p>Сохранить стартап</p></button>
+    <button mat-stroked-button color="primary" (click)="goBack()" style="width: 240px; height: 50px" class="margin-top"><p>Отменить</p></button>
+  </div>
+  <div style="display: flex; gap: 2rem; margin-bottom: 80px" *ngIf="readonly && role==='MODERATOR'">
+    <mat-chip-listbox [formControl]="statusControl">
+      <mat-chip-option value="1">Валидация пройдена</mat-chip-option>
+      <mat-chip-option value="2">Валидация не пройдена</mat-chip-option>
+    </mat-chip-listbox>
+    <mat-form-field class="margin-top" appearance="outline" style="width: 50%">
+      <mat-label>Комментарий</mat-label>
+      <textarea type="number" matInput [formControl]="commentAnalyst"></textarea>
+      <mat-error *ngIf="!commentAnalyst.valid">Требуется указать комментарий</mat-error>
+      <mat-error *ngIf="!statusControl.valid">Требуется указать статус</mat-error>
+    </mat-form-field>
+  </div>
+  <div style="display: flex; gap: 2rem; margin-bottom: 80px" *ngIf="readonly && role==='MODERATOR'">
+    <button mat-flat-button color="primary" (click)="saveAnalystFeedback()"  style="width: 240px; height: 50px" class="margin-top"><p>Сохранить</p></button>
+    <button mat-stroked-button color="primary" (click)="goBack()" style="width: 240px; height: 50px" class="margin-top"><p>Отменить</p></button>
+  </div>
+  <div style="display: flex; gap: 2rem; margin-bottom: 80px" *ngIf="readonly && role==='INVESTOR'">
+    <mat-chip-listbox [formControl]="investorStatusControl">
+      <mat-chip-option value="1">Метч</mat-chip-option>
+      <mat-chip-option value="0">Не метч</mat-chip-option>
+    </mat-chip-listbox>
+  </div>
+  <div style="display: flex; gap: 2rem; margin-bottom: 80px" *ngIf="readonly && role==='INVESTOR'">
+    <mat-error *ngIf="!investorStatusControl.valid">Требуется указать статус</mat-error>
+    <button mat-flat-button color="primary" (click)="saveInvestorFeedback()"  style="width: 240px; height: 50px" class="margin-top"><p>Сохранить</p></button>
+    <button mat-stroked-button color="primary" (click)="goBack()" style="width: 240px; height: 50px" class="margin-top"><p>Отменить</p></button>
+  </div>
+</form>
+

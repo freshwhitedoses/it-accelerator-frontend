@@ -1,0 +1,9 @@
+<h1>Мои команды</h1>
+<div style="display: flex; flex-direction: column; gap: 2rem; height: 100%;flex-wrap: wrap" *ngIf="teamsResponse | async as teams">
+  <button style="width: 300px" [routerLink]="['/new/team']" mat-raised-button color="primary">Создать команду</button>
+  <p *ngIf="teams.data.teams.length==0">Команд с вашим участием не найдено</p>
+  <div style="display:flex; width: 100%; flex-wrap: wrap; gap: 2rem">
+    <app-team *ngFor="let te of teams.data.teams" [team]="te"></app-team>
+  </div>
+</div>
+

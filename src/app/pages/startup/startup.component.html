@@ -1,0 +1,11 @@
+<div class="card" style="display: flex;flex-direction: column; border: 2px solid #005bff; border-radius: 10px; padding: 1rem">
+  <div style="display: flex; align-items: baseline; justify-content: space-between">
+    <h2 style=" cursor: pointer" (click)="goToStartup(startup)" >{{startup.name}}</h2>
+    <mat-icon  style=" cursor: pointer" color="primary" (click)="editStartup($event)">edit</mat-icon>
+  </div>
+<!--  <mat-chip-listbox >-->
+<!--    <mat-chip (click)="log()" *ngFor="let item of team.users">{{item.name}} {{item.surname}}</mat-chip>-->
+<!--  </mat-chip-listbox>-->
+  <small style="font-weight: bolder" [ngStyle]="{'color': startup.status === 0 ? 'black' : (startup.status === 1 ? 'green' : 'red') }" >{{getStatus(startup.status)}}</small>
+  <small style="color: black" *ngIf="startup.status == 1 || startup.status ==2"><b [ngStyle]="{'color': startup.status === 1 ? 'green' : 'red' }">Комментарий модератора: </b>{{startup.analystComment}}</small>
+</div>

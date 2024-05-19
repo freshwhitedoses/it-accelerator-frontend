@@ -1,0 +1,23 @@
+<div style="display: flex; flex-direction: column; gap: 2rem" *ngIf="team">
+  <h1>Команда <b style="color:#005bff;">{{team.name}}</b></h1>
+  <div style="display: flex; gap: 1rem;align-items: center; width: 100%; flex-wrap: wrap;">
+    <p>Участники:</p>
+    <mat-chip-listbox >
+      <mat-chip *ngFor="let item of team.users">{{item.name}} {{item.surname}}</mat-chip>
+    </mat-chip-listbox>
+  </div>
+  <h2>Стартапы команды</h2>
+  <button style="width: 300px" [routerLink]="['/new/startup']" mat-raised-button color="primary">Создать стартап</button>
+  <mat-chip-listbox [formControl]="statuses">
+    <mat-chip-option value="0">Все</mat-chip-option>
+    <mat-chip-option value="1">На валидации</mat-chip-option>
+    <mat-chip-option value="2">Прошел валидацию</mat-chip-option>
+    <mat-chip-option value="3">Не прошел валидацию</mat-chip-option>
+  </mat-chip-listbox>
+  <div style="display: flex; flex-direction: column; gap: 2rem; height: 100%;flex-wrap: wrap" *ngIf="startupsRes | async as startups">
+    <div style="display:flex; width: 100%; flex-wrap: wrap; gap: 2rem">
+      <app-startup *ngFor="let st of startups.data" [startup]="st"></app-startup>
+    </div>
+  </div>
+</div>
+

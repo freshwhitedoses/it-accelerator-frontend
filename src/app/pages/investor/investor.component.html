@@ -1,0 +1,14 @@
+<div *ngIf="role==='USER'" class="card" style="display: flex; margin-top: 50px;cursor: pointer;flex-direction: column; border: 2px solid #005bff; border-radius: 10px; padding: 1rem">
+  <h2>{{investorStartup.investor.name}} {{investorStartup.investor.surname}}</h2>
+  <span>{{investorStartup.investor.birthDate}}</span>
+  <span  *ngIf="investorStartup.teamStatus===1" style="color: #1b3dff"><b>{{investorStartup.investor.telegramId}}</b></span>
+  <div style="display: flex; gap: 1rem; margin-top: 30px">
+    <button mat-raised-button color="primary" (click)="sendFeedback(1, investorStartup.investingStartupId)">Метч</button>
+    <button mat-stroked-button color="primary" (click)="sendFeedback(2,investorStartup.investingStartupId)">Не метч</button>
+  </div>
+</div>
+<div *ngIf="role==='INVESTOR'" class="card" style="display: flex; margin-top: 50px; cursor: pointer;flex-direction: column; border: 2px solid #005bff; border-radius: 10px; padding: 1rem">
+  <h2>{{investorStartup.startup.name}}</h2>
+  <span  style="color: #1b3dff"><b>{{investorStartup.startup.investmentAmount}}РУБ</b></span>
+  <span  *ngIf="investorStartup.teamStatus===1" style="color: #1b3dff"><b>{{investorStartup.startup.teamId}}</b></span>
+</div>

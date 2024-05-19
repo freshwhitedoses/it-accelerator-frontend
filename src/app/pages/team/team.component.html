@@ -1,0 +1,6 @@
+<div class="card" (click)="goToTeam(team)" style="display: flex; cursor: pointer;flex-direction: column; border: 2px solid #005bff; border-radius: 10px; padding: 1rem">
+  <h2>{{team.name}}</h2>
+  <mat-chip-listbox >
+    <mat-chip (click)="log()" *ngFor="let item of team.users">{{item.name}} {{item.surname}}</mat-chip>
+  </mat-chip-listbox>
+</div>
