@@ -35,4 +35,4 @@ jobs:
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.SSH_PORT }}
-        script: sudo docker remove -f back && sudo docker pull olechochek/rksp-front:latest && sudo docker run --name front -p8080:80 -d olechochek/rksp-front:latest
+        script: sudo docker remove -f front && sudo docker pull olechochek/rksp-front:latest && sudo docker run --name front -p8080:80 -d olechochek/rksp-front:latest
